@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelena Stricak</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Animated Wavy Gradient Background */
+        .wavy-gradient-bg {
+            background-color: #0d1117; /* A very dark, almost black base */
+            background-image: 
+                radial-gradient(ellipse at 20% 20%, #240046 0%, rgba(36,0,70,0) 40%), /* Dark Purple */
+                radial-gradient(ellipse at 80% 30%, #03045e 0%, rgba(3,4,94,0) 40%),   /* Navy Blue */
+                radial-gradient(ellipse at 50% 80%, #343a40 0%, rgba(52,58,64,0) 40%); /* Dark Gray */
+            background-size: 150% 150%;
+            animation: waveMotion 25s ease-in-out infinite;
+        }
+
+        @keyframes waveMotion {
+            0% {
+                background-position: 0% 80%, 80% 20%, 30% 30%;
+            }
+            50% {
+                background-position: 100% 20%, 0% 80%, 50% 50%;
+            }
+            100% {
+                background-position: 0% 80%, 80% 20%, 30% 30%;
+            }
+        }
+        
+        /* Content Fade-in Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Staggered animation delays */
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        
+        /* Icon styling */
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: #c77dff; /* A vibrant lavender for highlight */
+        }
+    </style>
+</head>
+<body class="wavy-gradient-bg text-gray-300">
+
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="text-center p-8 max-w-3xl">
+            
+            <!-- Main Info -->
+            <div class="fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight">Jelena Stricak</h1>
+                <p class="text-md md:text-lg text-gray-300 mt-4 leading-relaxed">
+                    Through my company, I offer guided tours and educational support, applying skills as a certified project manager to ensure a seamless experience. My work is complemented by recent certifications in AI and cybersecurity, allowing me to integrate modern perspectives into a passion for history and teaching.
+                </p>
+            </div>
+            
+            <!-- Social Icons -->
+            <nav class="flex justify-center flex-wrap gap-x-6 gap-y-4 md:gap-x-8 mt-12 fade-in delay-2">
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/jelenastricak" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="LinkedIn">
+                    <svg class="w-7 h-7" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+                </a>
+                
+                <!-- X (Twitter) -->
+                <a href="https://x.com/jstricak" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="X">
+                    <svg class="w-7 h-7" role="img" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/jelenastricak" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="GitHub">
+                    <svg class="w-7 h-7" role="img" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C7.325 19.31 6.53 19 6.53 19c-1.088-.744.082-.729.082-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.63-5.373-12-12-12"/></svg>
+                </a>
+                
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/jelenastricak/" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="Instagram">
+                    <svg class="w-7 h-7" role="img" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.784.297-1.459.717-2.126 1.384S.926 3.356.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.297.784.717 1.459 1.384 2.126.667.666 1.342 1.086 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.784-.297 1.459-.718 2.126-1.384.666-.667 1.086-1.342 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.297-.784-.718-1.459-1.384-2.126C21.314 1.62 20.64 1.2 19.86.904 19.094.61 18.223.408 16.947.35c-1.28-.056-1.687-.07-4.947-.07zM12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
+                </a>
+                
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/herodot.tours" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="Facebook">
+                    <svg class="w-7 h-7" role="img" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.35C0 23.407.593 24 1.325 24H12.82v-9.29h-3.128v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.732 0 1.325-.593 1.325-1.325V1.325C24 .593 23.407 0 22.675 0z"/></svg>
+                </a>
+
+                <!-- Medium -->
+                <a href="https://medium.com/@jstricak" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="Medium">
+                    <svg class="w-7 h-7" role="img" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7.45 18.534h-.002a2.01 2.01 0 0 1-1.616-1.012L1.72 8.447h-.003c-.008-.02-.012-.04-.012-.061 0-.012.002-.023.005-.035.003-.01.006-.021.01-.03.008-.02.018-.038.028-.056.012-.021.025-.042.04-.062.016-.021.034-.04.052-.058.017-.018.035-.035.054-.05.02-.016.04-.03.062-.044.02-.013.042-.025.064-.036.023-.012.047-.022.07-.032.025-.01.05-.02.076-.027.027-.008.055-.013.082-.018.03-.005.06-.008.09-.01L2.3 8.005h4.757l3.238 7.954L14.47 5.51l.14-.01h5.83l-5.69 8.358-3.46 5.676a2.053 2.053 0 0 1-1.64 1.01z"/></svg>
+                </a>
+                
+                <!-- Indiegogo -->
+                <a href="https://igg.me/at/solmit/x/38652511#/" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="Indiegogo">
+                     <svg class="w-7 h-7" role="img" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.24 13.788c-1.08-2.616-3.42-3.216-3.42-3.216s-2.34.6-3.42 3.216c-1.08 2.616 1.152 4.608 1.152 4.608s2.268 2.004 2.268 4.62c0 2.616-2.268 4.608-2.268 4.608S4.32 29.628 5.4 32.244c1.08 2.616 3.42 3.216 3.42 3.216s2.34-.6 3.42-3.216c1.08-2.616-1.152-4.608-1.152-4.608s-2.268-2.004-2.268-4.62c0-2.616 2.268-4.608 2.268-4.608s2.232-1.992 1.152-4.608zm6.324-4.2c-1.08-2.616-3.42-3.216-3.42-3.216s-2.34.6-3.42 3.216c-1.08 2.616 1.152 4.608 1.152 4.608s2.268 2.004 2.268 4.62c0 2.616-2.268 4.608-2.268 4.608s-2.232 1.992-1.152 4.608c1.08 2.616 3.42 3.216 3.42 3.216s2.34-.6 3.42-3.216c1.08-2.616-1.152-4.608-1.152-4.608s-2.268-2.004-2.268-4.62c0-2.616 2.268-4.608 2.268-4.608s2.232-1.992 1.152-4.608z" transform="scale(.5) translate(2, -8)"/></svg>
+                </a>
+
+                <!-- Generic Link -->
+                <a href="https://jelenastricak.link" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="Personal Website">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                </a>
+                
+                <!-- Generic Globe -->
+                <a href="https://solmint.digital" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="Company Website">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9V3m-9 9c0-4.97 4.03-9 9-9h.5"></path></svg>
+                </a>
+                
+                <!-- Generic Shield -->
+                <a href="https://www.cyberlinksec.com" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="CyberLinkSec Website">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </a>
+            </nav>
+
+        </div>
+    </div>
+</body>
+</html>
