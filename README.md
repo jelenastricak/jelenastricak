@@ -1,7 +1,5 @@
 ## Hi there 👋 folks!
 
-
-<h2>📖 | I'm Jelena</h2> 
 🌐 With my company, I offer guided tours and educational support, applying skills as a certified project manager to ensure a seamless experience. 
 My work is complemented by recent certifications in AI and cybersecurity, allowing me to integrate modern perspectives into a passion for history and teaching.
 
