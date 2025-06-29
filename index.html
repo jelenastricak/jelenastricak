@@ -22,24 +22,24 @@
 
         /* Animated Wavy Gradient Background */
         .wavy-gradient-bg {
-            background-color: #0d1117; /* A very dark, almost black base */
+            background-color: #111827; /* Dark gray base */
             background-image: 
-                radial-gradient(ellipse at 20% 20%, #240046 0%, rgba(36,0,70,0) 40%), /* Dark Purple */
-                radial-gradient(ellipse at 80% 30%, #03045e 0%, rgba(3,4,94,0) 40%),   /* Navy Blue */
-                radial-gradient(ellipse at 50% 80%, #343a40 0%, rgba(52,58,64,0) 40%); /* Dark Gray */
-            background-size: 150% 150%;
-            animation: waveMotion 25s ease-in-out infinite;
+                radial-gradient(ellipse at 10% 20%, #4c1d95 0%, rgba(76,29,149,0) 40%),  /* Brighter Purple */
+                radial-gradient(ellipse at 80% 40%, #240046 0%, rgba(36,0,70,0) 40%),    /* Darker Purple */
+                radial-gradient(ellipse at 50% 80%, #1f2937 0%, rgba(31,41,55,0) 45%);   /* Dark Grey */
+            background-size: 200% 200%;
+            animation: waveMotion 15s ease-in-out infinite;
         }
 
         @keyframes waveMotion {
             0% {
-                background-position: 0% 80%, 80% 20%, 30% 30%;
+                background-position: 0% 50%, 50% 100%, 100% 50%;
             }
             50% {
-                background-position: 100% 20%, 0% 80%, 50% 50%;
+                background-position: 100% 50%, 0% 0%, 50% 0%;
             }
             100% {
-                background-position: 0% 80%, 80% 20%, 30% 30%;
+                background-position: 0% 50%, 50% 100%, 100% 50%;
             }
         }
         
