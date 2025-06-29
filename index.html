@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jelena Stricak</title>
+    <title>Bojan Vasic</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,9 +64,7 @@
         }
     </style>
 </head>
-<body>
-
-    <canvas id="interactive-canvas"></canvas>
+<body class="gradient-bg text-gray-300">
 
     <div class="flex items-center justify-center min-h-screen content-container">
         <div class="text-center p-8 max-w-3xl">
@@ -133,160 +132,6 @@
 
         </div>
     </div>
-    
-    <script>
-        const canvas = document.getElementById('interactive-canvas');
-        const ctx = canvas.getContext('2d');
-
-        let particlesArray;
-        let mouse = {
-            x: null,
-            y: null,
-            radius: 150 // Area of effect for mouse interaction
-        };
-
-        // Set canvas size
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        setCanvasSize();
-
-        window.addEventListener('resize', () => {
-            setCanvasSize();
-            init();
-        });
-
-        window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-        
-        // Clear mouse position when it leaves the window
-        window.addEventListener('mouseout', () => {
-            mouse.x = undefined;
-            mouse.y = undefined;
-        });
-
-
-        // Particle class
-        class Particle {
-            constructor(x, y, directionX, directionY, size, color) {
-                this.x = x;
-                this.y = y;
-                this.directionX = directionX;
-                this.directionY = directionY;
-                this.size = size;
-                this.color = color;
-                this.baseX = this.x; // Store original position for ripple effect
-                this.baseY = this.y;
-                this.density = (Math.random() * 30) + 1; // For ripple effect
-            }
-
-            // Method to draw individual particle
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-
-            // Method to update particle's position and handle interactions
-            update() {
-                // Bounce off edges
-                if (this.x > canvas.width || this.x < 0) {
-                    this.directionX = -this.directionX;
-                }
-                if (this.y > canvas.height || this.y < 0) {
-                    this.directionY = -this.directionY;
-                }
-                
-                // Check for mouse collision
-                let dx = mouse.x - this.x;
-                let dy = mouse.y - this.y;
-                let distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < mouse.radius) {
-                    // Create a repulsive force
-                    let forceDirectionX = dx / distance;
-                    let forceDirectionY = dy / distance;
-                    let maxDistance = mouse.radius;
-                    let force = (maxDistance - distance) / maxDistance;
-                    let directionX = forceDirectionX * force * this.density * 0.6;
-                    let directionY = forceDirectionY * force * this.density * 0.6;
-                    
-                    this.x -= directionX;
-                    this.y -= directionY;
-                } else {
-                    // Move the particle
-                    this.x += this.directionX;
-                    this.y += this.directionY;
-                }
-                this.draw();
-            }
-        }
-
-        // Create particle array
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.height * canvas.width) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                let size = (Math.random() * 2) + 1;
-                let x = Math.random() * (innerWidth - size * 2) + size;
-                let y = Math.random() * (innerHeight - size * 2) + size;
-                let directionX = (Math.random() * 0.4) - 0.2;
-                let directionY = (Math.random() * 0.4) - 0.2;
-                let color = 'rgba(168, 85, 247, 0.8)'; // Purple color for particles
-                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-            }
-        }
-
-        // Draw connecting lines between particles
-        function connect() {
-            // Define a larger connection radius to prevent the network from breaking
-            const connectRadiusSq = (canvas.width / 5) * (canvas.height / 5);
-
-            for (let a = 0; a < particlesArray.length; a++) {
-                for (let b = a; b < particlesArray.length; b++) {
-                    let distanceSq = ((particlesArray[a].x - particlesArray[b].x) ** 2) +
-                                     ((particlesArray[a].y - particlesArray[b].y) ** 2);
-                    
-                    // Check if particles are within the connection radius
-                    if (distanceSq < connectRadiusSq) {
-                        // Calculate opacity based on distance, normalized to the connection radius
-                        // Lower distance = higher opacity
-                        let opacityValue = 1 - (distanceSq / connectRadiusSq);
-                        
-                        // Increase transparency by 30% (i.e., reduce opacity to 70% of its value)
-                        opacityValue *= 0.7;
-
-                        // Ensure opacity is not negative
-                        opacityValue = Math.max(0, opacityValue);
-
-                        ctx.strokeStyle = `rgba(192, 132, 252, ${opacityValue})`; // Glossy purple for lines
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
-                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-        
-        // Animation loop
-        function animate() {
-            requestAnimationFrame(animate);
-            ctx.clearRect(0, 0, innerWidth, innerHeight);
-
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-            }
-            connect();
-        }
-        
-        init();
-        animate();
-    </script>
 </body>
 </html>
+
