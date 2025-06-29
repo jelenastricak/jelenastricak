@@ -18,31 +18,25 @@
             font-family: 'Poppins', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            background-color: #020617; /* Dark Navy Blue/Black Base */
+            color: #e5e7eb; /* Light gray text for contrast */
+            overflow: hidden; /* Prevent scrollbars from the canvas */
         }
 
-        /* Animated Wavy Gradient Background */
-        .wavy-gradient-bg {
-            background-color: #111827; /* Dark gray base */
-            background-image: 
-                radial-gradient(ellipse at 10% 20%, #4c1d95 0%, rgba(76,29,149,0) 40%),  /* Brighter Purple */
-                radial-gradient(ellipse at 80% 40%, #240046 0%, rgba(36,0,70,0) 40%),    /* Darker Purple */
-                radial-gradient(ellipse at 50% 80%, #1f2937 0%, rgba(31,41,55,0) 45%);   /* Dark Grey */
-            background-size: 200% 200%;
-            animation: waveMotion 15s ease-in-out infinite;
-        }
-
-        @keyframes waveMotion {
-            0% {
-                background-position: 0% 50%, 50% 100%, 100% 50%;
-            }
-            50% {
-                background-position: 100% 50%, 0% 0%, 50% 0%;
-            }
-            100% {
-                background-position: 0% 50%, 50% 100%, 100% 50%;
-            }
+        #interactive-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Place canvas behind content */
         }
         
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+
         /* Content Fade-in Animation */
         .fade-in {
             opacity: 0;
@@ -68,13 +62,15 @@
 
         .social-icon:hover {
             transform: scale(1.2);
-            color: #c77dff; /* A vibrant lavender for highlight */
+            color: #c084fc; /* A vibrant lavender for highlight */
         }
     </style>
 </head>
-<body class="wavy-gradient-bg text-gray-300">
+<body>
 
-    <div class="flex items-center justify-center min-h-screen">
+    <canvas id="interactive-canvas"></canvas>
+
+    <div class="flex items-center justify-center min-h-screen content-container">
         <div class="text-center p-8 max-w-3xl">
             
             <!-- Main Info -->
@@ -87,7 +83,8 @@
             
             <!-- Social Icons -->
             <nav class="flex justify-center flex-wrap gap-x-6 gap-y-4 md:gap-x-8 mt-12 fade-in delay-2">
-                <!-- LinkedIn -->
+                <!-- Social links remain the same -->
+                 <!-- LinkedIn -->
                 <a href="https://www.linkedin.com/in/jelenastricak" target="_blank" rel="noopener noreferrer" class="social-icon text-gray-400" aria-label="LinkedIn">
                     <svg class="w-7 h-7" role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
                 </a>
@@ -140,5 +137,148 @@
 
         </div>
     </div>
+    
+    <script>
+        const canvas = document.getElementById('interactive-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particlesArray;
+        let mouse = {
+            x: null,
+            y: null,
+            radius: 150 // Area of effect for mouse interaction
+        };
+
+        // Set canvas size
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        setCanvasSize();
+
+        window.addEventListener('resize', () => {
+            setCanvasSize();
+            init();
+        });
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+        
+        // Clear mouse position when it leaves the window
+        window.addEventListener('mouseout', () => {
+            mouse.x = undefined;
+            mouse.y = undefined;
+        });
+
+
+        // Particle class
+        class Particle {
+            constructor(x, y, directionX, directionY, size, color) {
+                this.x = x;
+                this.y = y;
+                this.directionX = directionX;
+                this.directionY = directionY;
+                this.size = size;
+                this.color = color;
+                this.baseX = this.x; // Store original position for ripple effect
+                this.baseY = this.y;
+                this.density = (Math.random() * 30) + 1; // For ripple effect
+            }
+
+            // Method to draw individual particle
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            // Method to update particle's position and handle interactions
+            update() {
+                // Bounce off edges
+                if (this.x > canvas.width || this.x < 0) {
+                    this.directionX = -this.directionX;
+                }
+                if (this.y > canvas.height || this.y < 0) {
+                    this.directionY = -this.directionY;
+                }
+                
+                // Check for mouse collision
+                let dx = mouse.x - this.x;
+                let dy = mouse.y - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouse.radius) {
+                    // Create a repulsive force
+                    let forceDirectionX = dx / distance;
+                    let forceDirectionY = dy / distance;
+                    let maxDistance = mouse.radius;
+                    let force = (maxDistance - distance) / maxDistance;
+                    let directionX = forceDirectionX * force * this.density * 0.6;
+                    let directionY = forceDirectionY * force * this.density * 0.6;
+                    
+                    this.x -= directionX;
+                    this.y -= directionY;
+                } else {
+                    // Move the particle
+                    this.x += this.directionX;
+                    this.y += this.directionY;
+                }
+                this.draw();
+            }
+        }
+
+        // Create particle array
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.height * canvas.width) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                let size = (Math.random() * 2) + 1;
+                let x = Math.random() * (innerWidth - size * 2) + size;
+                let y = Math.random() * (innerHeight - size * 2) + size;
+                let directionX = (Math.random() * 0.4) - 0.2;
+                let directionY = (Math.random() * 0.4) - 0.2;
+                let color = 'rgba(168, 85, 247, 0.8)'; // Purple color for particles
+                particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            }
+        }
+
+        // Draw connecting lines between particles
+        function connect() {
+            let opacityValue = 1;
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                                 ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    
+                    if (distance < (canvas.width/7) * (canvas.height/7)) {
+                        opacityValue = 1 - (distance/20000);
+                        ctx.strokeStyle = `rgba(192, 132, 252, ${opacityValue})`; // Glossy purple for lines
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+            }
+            connect();
+        }
+        
+        init();
+        animate();
+    </script>
 </body>
 </html>
